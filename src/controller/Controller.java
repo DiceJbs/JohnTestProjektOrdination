@@ -37,7 +37,23 @@ public abstract class Controller {
             LocalDate startDato, LocalDate slutDato, Patient patient, Lægemiddel lægemiddel,
             double morgenAntal, double middagAntal, double aftenAntal, double natAntal) {
 
-        return null;
+        if (startDato.isAfter(slutDato)) {
+            throw new IllegalArgumentException("Startdato kan ikke være efter slutdato");
+        }
+
+        if (morgenAntal < 0 || middagAntal < 0 || aftenAntal < 0 || natAntal < 0) {
+            throw new IllegalArgumentException("Antal doser kan ikke være negative");
+        }
+
+        DagligFast ordination = new DagligFast(startDato, slutDato, morgenAntal, middagAntal, aftenAntal, natAntal);
+
+        try {
+            patient.getOrdinations().add(ordination);
+        } catch (Exception e) {
+            throw new RuntimeException("Kunne ike sætte lægemiddel på ordination", e);
+        }
+
+        return ordination;
     }
 
     /**
