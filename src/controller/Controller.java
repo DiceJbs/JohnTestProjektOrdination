@@ -58,6 +58,7 @@ public abstract class Controller {
         DagligFast ordination = new DagligFast(startDato, slutDato, morgenAntal, middagAntal, aftenAntal, natAntal);
 
         try {
+            ordination.setLægemiddel(lægemiddel);
             patient.getOrdinations().add(ordination);
         } catch (Exception e) {
             throw new RuntimeException("Kunne ike sætte lægemiddel på ordination", e);
@@ -99,8 +100,18 @@ public abstract class Controller {
      * (afhænger af patientens vægt).
      */
     public static double anbefaletDosisPrDøgn(Patient patient, Lægemiddel lægemiddel) {
+        double vægt = patient.getVægt();
+        double faktor;
 
-        return 0;
+        if (vægt < 25) {
+            faktor = lægemiddel.getEnhedPrKgPrDøgnLet();
+        } else if (vægt <= 120) {
+            faktor = lægemiddel.getEnhedPrKgPrDøgnNormal();
+        } else {
+            faktor = lægemiddel.getEnhedPrKgPrDøgnTung();
+        }
+
+        return vægt * faktor;
     }
 
     /** Returner antal ordinationer for det givne vægtinterval og det givne lægemiddel. */
