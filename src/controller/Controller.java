@@ -92,9 +92,9 @@ public abstract class Controller {
             dosisList.add(new Dosis(klokkeSlet[i], antalEnheder[i]));
         }
         DagligSkæv opretDagligSkæv = new DagligSkæv(startDen, slutDen,dosisList);
-
-
-        return null;
+        patient.getOrdinations().add(opretDagligSkæv);
+        opretDagligSkæv.setLægemiddel(lægemiddel);
+        return opretDagligSkæv;
     }
 
     /**
