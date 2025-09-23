@@ -22,11 +22,7 @@ public void registerDate (LocalDate date){
     datoerHvorOrdinationIndtaget.add(date);
 }
     public void anvendDosis(LocalDate dato) {
-    if (dato.isAfter(super.getStartDato())&&dato.isBefore(super.getSlutDato())||dato.equals(super.getStartDato())||dato.equals(super.getSlutDato())){
-        registerDate(dato);} else {
-        throw new IllegalArgumentException("Not a valid date");
-    }
-
+        registerDate(dato);
     }
 
     /** Returner antal gange ordinationen er anvendt. */

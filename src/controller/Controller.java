@@ -23,10 +23,18 @@ public abstract class Controller {
     public static PN opretPNOrdination(
             LocalDate startDato, LocalDate slutDato, Patient patient, Lægemiddel lægemiddel,
             double antal) {
+        if (antal>0) {
+        throw new IllegalArgumentException("antal under 0");
+        }
+        if (startDato.isAfter(slutDato)){
+            throw new IllegalArgumentException("Start dato er efter slut dato");
+        }
+
         PN ordination = new PN(startDato,slutDato,antal);
         ordination.setLægemiddel(lægemiddel);
         patient.getOrdinations().add(ordination);
         return ordination;
+
     }
 
     /**
@@ -79,7 +87,11 @@ public abstract class Controller {
      * kastes en IllegalArgumentException.
      */
     public static void anvendOrdinationPN(PN ordination, LocalDate dato) {
-
+        if (dato.isAfter(ordination.getStartDato()) && dato.isBefore(ordination.getSlutDato()) || dato.equals(ordination.getStartDato()) || dato.equals(ordination.getSlutDato())) {
+            ordination.anvendDosis(dato);
+        } else {
+            throw new IllegalArgumentException("Not a valid date");
+        }
     }
 
     /**
