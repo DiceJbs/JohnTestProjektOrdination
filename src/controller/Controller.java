@@ -23,8 +23,10 @@ public abstract class Controller {
     public static PN opretPNOrdination(
             LocalDate startDato, LocalDate slutDato, Patient patient, Lægemiddel lægemiddel,
             double antal) {
-
-        return null;
+        PN ordination = new PN(startDato,slutDato,antal);
+        ordination.setLægemiddel(lægemiddel);
+        patient.getOrdinations().add(ordination);
+        return ordination;
     }
 
     /**
