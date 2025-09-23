@@ -2,6 +2,7 @@ package controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import ordination.*;
@@ -53,6 +54,20 @@ public abstract class Controller {
     public static DagligSkæv opretDagligSkævOrdination(
             LocalDate startDen, LocalDate slutDen, Patient patient, Lægemiddel lægemiddel,
             LocalTime[] klokkeSlet, double[] antalEnheder) {
+
+
+        List<Dosis> dosisList = new ArrayList<>();
+
+        if (startDen.isAfter(slutDen) || slutDen.isBefore(startDen)) {
+            throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
+        } if (antalEnheder.length != klokkeSlet.length) {
+            throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
+        }
+        for (int i = 0; i < klokkeSlet.length; i++) {
+            dosisList.add(new Dosis(klokkeSlet[i], antalEnheder[i]));
+        }
+        DagligSkæv opretDagligSkæv = new DagligSkæv(startDen, slutDen,dosisList);
+
 
         return null;
     }

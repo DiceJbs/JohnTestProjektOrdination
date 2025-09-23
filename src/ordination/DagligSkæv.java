@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-public abstract class DagligSkæv extends Ordination {
+public class DagligSkæv extends Ordination {
     private List<Dosis> dosisList;
 
     public DagligSkæv(LocalDate startDato, LocalDate slutDato, List<Dosis> dosisList) {
