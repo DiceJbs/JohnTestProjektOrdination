@@ -63,7 +63,7 @@ public abstract class Controller {
      * kastes en IllegalArgumentException.
      */
     public static void anvendOrdinationPN(PN ordination, LocalDate dato) {
-
+    ordination.anvendDosis(dato);
     }
 
     /**
