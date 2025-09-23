@@ -7,6 +7,7 @@ public abstract class Ordination {
     private final LocalDate startDato;
     private final LocalDate slutDato;
 
+
     public LocalDate getStartDato() {
         return startDato;
     }
