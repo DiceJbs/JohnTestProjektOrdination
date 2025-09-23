@@ -6,6 +6,8 @@ import java.time.temporal.ChronoUnit;
 public abstract class Ordination {
     private final LocalDate startDato;
     private final LocalDate slutDato;
+    private Lægemiddel lægemiddel;
+
 
 
     public LocalDate getStartDato() {
@@ -37,4 +39,8 @@ public abstract class Ordination {
 
     /** Returner ordinationstypen som en String. */
     public abstract String getType();
+
+    public Lægemiddel getLægemiddel() {
+        return lægemiddel;
+    }
 }
