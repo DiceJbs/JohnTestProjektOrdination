@@ -37,7 +37,7 @@ public void registerDate (LocalDate date){
 
     @Override
     public double døgnDosis() {
-        return (antalGangeAnvendt()*antalEnheder)/ ChronoUnit.DAYS.between(datoerHvorOrdinationIndtaget.getFirst(),datoerHvorOrdinationIndtaget.getLast());
+        return (antalGangeAnvendt()*antalEnheder)/ antalDage();
     }
 
     @Override

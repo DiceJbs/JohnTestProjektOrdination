@@ -103,10 +103,14 @@ public abstract class Controller {
      * kastes en IllegalArgumentException.
      */
     public static void anvendOrdinationPN(PN ordination, LocalDate dato) {
-        if (dato.isAfter(ordination.getStartDato()) && dato.isBefore(ordination.getSlutDato()) || dato.equals(ordination.getStartDato()) || dato.equals(ordination.getSlutDato())) {
-            ordination.anvendDosis(dato);
-        } else {
-            throw new IllegalArgumentException("Not a valid date");
+        if (ordination !=null) {
+            if (dato.isAfter(ordination.getStartDato()) && dato.isBefore(ordination.getSlutDato()) || dato.equals(ordination.getStartDato()) || dato.equals(ordination.getSlutDato())) {
+                ordination.anvendDosis(dato);
+            } else {
+                throw new IllegalArgumentException("Not a valid date");
+            }
+        }else {
+            throw new IllegalArgumentException("No ordination found");
         }
     }
 
