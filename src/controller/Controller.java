@@ -132,8 +132,13 @@ public abstract class Controller {
     /** Returner antal ordinationer for det givne vægtinterval og det givne lægemiddel. */
     public static int antalOrdinationerPrVægtPrLægemiddel(
             double vægtStart, double vægtSlut, Lægemiddel lægemiddel) {
-
-        return 0;
+        int antalOrdinationer = 0;
+        for (Patient patient : storage.getAllPatienter())
+            for (Ordination ordination : patient.getOrdinations())
+                if (patient.getVægt() <= vægtSlut && patient.getVægt() >= vægtStart
+                        && ordination.getLægemiddel() == lægemiddel)
+                    antalOrdinationer++;
+        return antalOrdinationer;
     }
 
     public static List<Patient> getAllPatienter() {
