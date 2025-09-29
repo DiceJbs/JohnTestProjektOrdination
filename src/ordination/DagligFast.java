@@ -6,6 +6,10 @@ import java.time.LocalTime;
 public class DagligFast extends Ordination {
     private Dosis[] doser;
 
+    public Dosis[] getDoser() {
+        return doser;
+    }
+
     public DagligFast(LocalDate startDato, LocalDate slutDato, double morgenAntal,
                       double middagAntal, double aftenAntal, double natAntal) {
         super(startDato, slutDato);

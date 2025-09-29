@@ -24,7 +24,7 @@ public abstract class Controller {
     public static PN opretPNOrdination(
             LocalDate startDato, LocalDate slutDato, Patient patient, Lægemiddel lægemiddel,
             double antal) {
-        if (antal>0) {
+        if (antal<0) {
         throw new IllegalArgumentException("antal under 0");
         }
         if (startDato.isAfter(slutDato)){
