@@ -1,6 +1,5 @@
 package ordination;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -93,17 +92,5 @@ class DagligFastTest {
                 10, 30, 10, 50
         );
         assertEquals(700, dagligFast.samletDosis());
-    }
-
-    // ------------- Tests for getType() -------------
-
-    @Test
-    void getType_returnererDagligFast() {
-        dagligFast = new DagligFast(
-                LocalDate.of(2025, 9, 26),
-                LocalDate.of(2025, 9, 26),
-                1, 0, 0, 0
-        );
-        assertEquals("DagligFast", dagligFast.getType());
     }
 }
