@@ -22,7 +22,7 @@ public class DagligSkæv extends Ordination {
         for (Dosis dosis : dosisList) {
             totalDosis += dosis.getAntal();
         }
-        return totalDosis;
+        return totalDosis*antalDage();
     }
     @Override
     public double døgnDosis() {
