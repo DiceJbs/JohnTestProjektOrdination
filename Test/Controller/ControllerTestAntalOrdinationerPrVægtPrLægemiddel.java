@@ -58,8 +58,6 @@ class ControllerTestAntalOrdinationerPrVægtPrLægemiddel {
         double vægtStart = 30;
         double vægtSlut = 70;
         Lægemiddel lægemiddel = null;
-        double resultat = Double.parseDouble(lægemiddel.getEnhedPrKgPrDøgnLet() + lægemiddel.getEnhedPrKgPrDøgnNormal() + lægemiddel.getEnhedPrKgPrDøgnTung()
-                + lægemiddel.getEnhed());
         Exception exception = assertThrows(NullPointerException.class,() -> Controller.antalOrdinationerPrVægtPrLægemiddel(vægtStart,vægtSlut,lægemiddel));
         assertEquals("Lægemiddel null",exception.getMessage());
     }
