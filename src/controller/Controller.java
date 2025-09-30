@@ -55,6 +55,10 @@ public abstract class Controller {
             throw new IllegalArgumentException("Antal doser kan ikke være negative");
         }
 
+        if (patient == null) {
+            throw new IllegalArgumentException("Patient må ikke være null");
+        }
+
         DagligFast ordination = new DagligFast(startDato, slutDato, morgenAntal, middagAntal, aftenAntal, natAntal);
 
         try {
@@ -78,10 +82,7 @@ public abstract class Controller {
     public static DagligSkæv opretDagligSkævOrdination(
             LocalDate startDen, LocalDate slutDen, Patient patient, Lægemiddel lægemiddel,
             LocalTime[] klokkeSlet, double[] antalEnheder) {
-
-
         List<Dosis> dosisList = new ArrayList<>();
-
         if (startDen.isAfter(slutDen) || slutDen.isBefore(startDen)) {
             throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
         }
@@ -119,8 +120,16 @@ public abstract class Controller {
      * (afhænger af patientens vægt).
      */
     public static double anbefaletDosisPrDøgn(Patient patient, Lægemiddel lægemiddel) {
+        if (patient == null) {
+            throw new IllegalArgumentException("Patient må ikke være null");
+        }
+
         double vægt = patient.getVægt();
         double faktor;
+
+        if (vægt <= 0) {
+            throw new IllegalArgumentException("Vægt skal være > 0");
+        }
 
         if (vægt < 25) {
             faktor = lægemiddel.getEnhedPrKgPrDøgnLet();
