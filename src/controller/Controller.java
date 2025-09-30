@@ -27,7 +27,7 @@ public abstract class Controller {
         if (antal<0) {
         throw new IllegalArgumentException("antal under 0");
         }
-        if (startDato.isAfter(slutDato)){
+        if (startDato.isAfter(slutDato)) {
             throw new IllegalArgumentException("Start dato er efter slut dato");
         }
         PN ordination = new PN(startDato,slutDato,antal);
@@ -84,13 +84,14 @@ public abstract class Controller {
 
         if (startDen.isAfter(slutDen) || slutDen.isBefore(startDen)) {
             throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
-        } if (antalEnheder.length != klokkeSlet.length) {
+        }
+        if (antalEnheder.length != klokkeSlet.length) {
             throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
         }
         for (int i = 0; i < klokkeSlet.length; i++) {
             dosisList.add(new Dosis(klokkeSlet[i], antalEnheder[i]));
         }
-        DagligSkæv opretDagligSkæv = new DagligSkæv(startDen, slutDen,dosisList);
+        DagligSkæv opretDagligSkæv = new DagligSkæv(startDen, slutDen, dosisList);
         patient.getOrdinations().add(opretDagligSkæv);
         opretDagligSkæv.setLægemiddel(lægemiddel);
         return opretDagligSkæv;
@@ -120,14 +121,6 @@ public abstract class Controller {
     public static double anbefaletDosisPrDøgn(Patient patient, Lægemiddel lægemiddel) {
         double vægt = patient.getVægt();
         double faktor;
-
-        if (patient == null) {
-            throw new IllegalArgumentException("Patient må ikke være null");
-        }
-
-        if (vægt <= 0) {
-            throw new IllegalArgumentException("Vægt skal være > 0");
-        }
 
         if (vægt < 25) {
             faktor = lægemiddel.getEnhedPrKgPrDøgnLet();
