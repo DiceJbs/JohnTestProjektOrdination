@@ -34,7 +34,7 @@ public class DagligFast extends Ordination {
             sum += d.getAntal();
         }
 
-        return sum / antalDage();
+        return sum;
     }
 
     @Override

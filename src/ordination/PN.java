@@ -11,6 +11,11 @@ public class PN extends Ordination {
         super(startDato, slutDato);
         this.antalEnheder = antalEnheder;
     }
+
+    public ArrayList<LocalDate> getDatoerHvorOrdinationIndtaget() {
+        return datoerHvorOrdinationIndtaget;
+    }
+
     public double getAntalEnheder() {
         return antalEnheder;
     }

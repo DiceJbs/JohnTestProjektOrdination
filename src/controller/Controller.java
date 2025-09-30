@@ -30,8 +30,7 @@ public abstract class Controller {
         if (startDato.isAfter(slutDato)) {
             throw new IllegalArgumentException("Start dato er efter slut dato");
         }
-
-        PN ordination = new PN(startDato, slutDato, antal);
+        PN ordination = new PN(startDato,slutDato,antal);
         ordination.setLægemiddel(lægemiddel);
         patient.getOrdinations().add(ordination);
         return ordination;
@@ -140,24 +139,9 @@ public abstract class Controller {
         int antalOrdinationer = 0;
         for (Patient patient : storage.getAllPatienter())
             for (Ordination ordination : patient.getOrdinations())
-                if (patient.getVægt() < vægtStart || patient.getVægt() > vægtSlut) {
-                    throw new IllegalArgumentException
-                            ("Patientens vægt skal ligge mellem vægtStart & vægtSlut");
-                } else if (patient.getVægt() <= vægtSlut && patient.getVægt() >= vægtStart &&
-                        ordination.getLægemiddel() != lægemiddel) {
-                    throw new IllegalArgumentException("Invalid lægemiddel");
-                } else if (patient.getVægt() <= vægtSlut && patient.getVægt() >= vægtStart &&
-                        ordination.getLægemiddel() == null) {
-                    throw new NullPointerException("Nullable lægemiddel");
-                } else if (patient.getVægt() < 0 || vægtStart < 0 || vægtSlut < 0) {
-                    throw new IllegalArgumentException("Der må ikke indtastes med negative tal");
-                } else if (patient.getVægt() == 0 || vægtStart == 0 || vægtSlut == 0) {
-                    throw new IllegalArgumentException("Indtast et tal større end 0");
-                } else {
-                    if (patient.getVægt() <= vægtSlut && patient.getVægt() >= vægtStart
-                            && ordination.getLægemiddel() == lægemiddel)
-                        antalOrdinationer++;
-                }
+                if (patient.getVægt() <= vægtSlut && patient.getVægt() >= vægtStart
+                        && ordination.getLægemiddel() == lægemiddel)
+                    antalOrdinationer++;
         return antalOrdinationer;
     }
 
