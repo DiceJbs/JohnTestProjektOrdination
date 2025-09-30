@@ -30,7 +30,6 @@ public abstract class Controller {
         if (startDato.isAfter(slutDato)){
             throw new IllegalArgumentException("Start dato er efter slut dato");
         }
-
         PN ordination = new PN(startDato,slutDato,antal);
         ordination.setLægemiddel(lægemiddel);
         patient.getOrdinations().add(ordination);
