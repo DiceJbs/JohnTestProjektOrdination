@@ -84,10 +84,10 @@ public abstract class Controller {
             LocalTime[] klokkeSlet, double[] antalEnheder) {
         List<Dosis> dosisList = new ArrayList<>();
         if (startDen.isAfter(slutDen) || slutDen.isBefore(startDen)) {
-            throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
+            throw new IllegalArgumentException("Ordinationen kan ikke oprettes ");
         }
         if (antalEnheder.length != klokkeSlet.length) {
-            throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
+            throw new IllegalArgumentException("Ordinationen kan ikke oprettes ");
         }
         for (int i = 0; i < klokkeSlet.length; i++) {
             dosisList.add(new Dosis(klokkeSlet[i], antalEnheder[i]));

@@ -30,14 +30,11 @@ class ControllerTestAntalOrdinationerPrVægtPrLægemiddel {
         Lægemiddel lægemiddel = new Lægemiddel("Methotrexate",0.01,0.015,0.02,"styk");
         LocalDate startDato = LocalDate.of(2025,10,1);
         LocalDate slutDato = LocalDate.of(2025,9,26);
-        LocalTime[] klokkeset = {LocalTime.of(10,0),LocalTime.of(15,0),LocalTime.of(20,0)};
-        double[] antalEnheder = {3};
-
-        double resultat = Double.parseDouble(lægemiddel.getEnhedPrKgPrDøgnLet() + lægemiddel.getEnhedPrKgPrDøgnNormal() +
-                lægemiddel.getEnhedPrKgPrDøgnTung() + lægemiddel.getEnhed());
-
+        LocalTime[] klokkeset = new LocalTime[1];
+        double[] antalEnheder = new double[1];
+        antalEnheder[0] = 10;
                 Exception exception = assertThrows(IllegalArgumentException.class,() -> Controller.opretDagligSkævOrdination(startDato,slutDato,patient,lægemiddel,klokkeset,antalEnheder)); {
-            throw new IllegalArgumentException("Ordinationen kan ikke oprettes " + exception.getMessage());
+            assertEquals("Ordinationen kan ikke oprettes ",exception.getMessage());
         }
     }
     @org.junit.jupiter.api.Test
@@ -46,13 +43,11 @@ class ControllerTestAntalOrdinationerPrVægtPrLægemiddel {
         Lægemiddel lægemiddel = new Lægemiddel("Paracetamol",1,1.5,2,"ML");
         LocalDate startDato = LocalDate.of(2025,9,25);
         LocalDate slutDato = LocalDate.of(2025,9,29);
-        double resultat = Double.parseDouble(lægemiddel.getEnhedPrKgPrDøgnLet() + lægemiddel.getEnhedPrKgPrDøgnNormal() +
-                lægemiddel.getEnhedPrKgPrDøgnTung() + lægemiddel.getEnhed());
-        LocalTime[] klokkeset = {LocalTime.of(10,0),LocalTime.of(15,0),LocalTime.of(20,0)};
-        double[] antalEnheder = {2};
+        LocalTime[] klokkeset = new LocalTime[1];
+        double[] antalEnheder = new double[2];
 
         Exception exception = assertThrows(IllegalArgumentException.class,() -> Controller.opretDagligSkævOrdination(startDato,slutDato,patient,lægemiddel,klokkeset,antalEnheder));
-        throw new IllegalArgumentException("Ordinationen kan ikke oprettes " + exception.getMessage());
+        assertEquals("Ordinationen kan ikke oprettes ", exception.getMessage());
     }
 
     @org.junit.jupiter.api.Test
@@ -60,8 +55,6 @@ class ControllerTestAntalOrdinationerPrVægtPrLægemiddel {
         double vægtStart = 30;
         double vægtSlut = 70;
         Lægemiddel lægemiddel = null;
-        double resultat = Double.parseDouble(lægemiddel.getEnhedPrKgPrDøgnLet() + lægemiddel.getEnhedPrKgPrDøgnNormal() + lægemiddel.getEnhedPrKgPrDøgnTung()
-                + lægemiddel.getEnhed());
         Exception exception = assertThrows(NullPointerException.class,() -> Controller.antalOrdinationerPrVægtPrLægemiddel(vægtStart,vægtSlut,lægemiddel));
         assertEquals("Lægemiddel null",exception.getMessage());
     }
