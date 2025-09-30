@@ -25,4 +25,5 @@ public class Storage {
     public void storeLægemiddel(Lægemiddel lægemiddel) {
         lægemidler.add(lægemiddel);
     }
+
 }

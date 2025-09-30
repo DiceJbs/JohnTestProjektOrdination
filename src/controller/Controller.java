@@ -24,8 +24,8 @@ public abstract class Controller {
     public static PN opretPNOrdination(
             LocalDate startDato, LocalDate slutDato, Patient patient, Lægemiddel lægemiddel,
             double antal) {
-        if (antal > 0) {
-            throw new IllegalArgumentException("antal under 0");
+        if (antal<0) {
+        throw new IllegalArgumentException("antal under 0");
         }
         if (startDato.isAfter(slutDato)) {
             throw new IllegalArgumentException("Start dato er efter slut dato");
@@ -104,13 +104,13 @@ public abstract class Controller {
      * kastes en IllegalArgumentException.
      */
     public static void anvendOrdinationPN(PN ordination, LocalDate dato) {
-        if (ordination != null) {
+        if (ordination !=null) {
             if (dato.isAfter(ordination.getStartDato()) && dato.isBefore(ordination.getSlutDato()) || dato.equals(ordination.getStartDato()) || dato.equals(ordination.getSlutDato())) {
                 ordination.anvendDosis(dato);
             } else {
                 throw new IllegalArgumentException("Not a valid date");
             }
-        } else {
+        }else {
             throw new IllegalArgumentException("No ordination found");
         }
     }
@@ -134,9 +134,7 @@ public abstract class Controller {
         return vægt * faktor;
     }
 
-    /**
-     * Returner antal ordinationer for det givne vægtinterval og det givne lægemiddel.
-     */
+    /** Returner antal ordinationer for det givne vægtinterval og det givne lægemiddel. */
     public static int antalOrdinationerPrVægtPrLægemiddel(
             double vægtStart, double vægtSlut, Lægemiddel lægemiddel) {
         int antalOrdinationer = 0;
