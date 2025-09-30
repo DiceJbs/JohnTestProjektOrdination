@@ -24,14 +24,14 @@ public abstract class Controller {
     public static PN opretPNOrdination(
             LocalDate startDato, LocalDate slutDato, Patient patient, Lægemiddel lægemiddel,
             double antal) {
-        if (antal>0) {
-        throw new IllegalArgumentException("antal under 0");
+        if (antal > 0) {
+            throw new IllegalArgumentException("antal under 0");
         }
-        if (startDato.isAfter(slutDato)){
+        if (startDato.isAfter(slutDato)) {
             throw new IllegalArgumentException("Start dato er efter slut dato");
         }
 
-        PN ordination = new PN(startDato,slutDato,antal);
+        PN ordination = new PN(startDato, slutDato, antal);
         ordination.setLægemiddel(lægemiddel);
         patient.getOrdinations().add(ordination);
         return ordination;
@@ -85,13 +85,14 @@ public abstract class Controller {
 
         if (startDen.isAfter(slutDen) || slutDen.isBefore(startDen)) {
             throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
-        } if (antalEnheder.length != klokkeSlet.length) {
+        }
+        if (antalEnheder.length != klokkeSlet.length) {
             throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
         }
         for (int i = 0; i < klokkeSlet.length; i++) {
             dosisList.add(new Dosis(klokkeSlet[i], antalEnheder[i]));
         }
-        DagligSkæv opretDagligSkæv = new DagligSkæv(startDen, slutDen,dosisList);
+        DagligSkæv opretDagligSkæv = new DagligSkæv(startDen, slutDen, dosisList);
         patient.getOrdinations().add(opretDagligSkæv);
         opretDagligSkæv.setLægemiddel(lægemiddel);
         return opretDagligSkæv;
@@ -103,13 +104,13 @@ public abstract class Controller {
      * kastes en IllegalArgumentException.
      */
     public static void anvendOrdinationPN(PN ordination, LocalDate dato) {
-        if (ordination !=null) {
+        if (ordination != null) {
             if (dato.isAfter(ordination.getStartDato()) && dato.isBefore(ordination.getSlutDato()) || dato.equals(ordination.getStartDato()) || dato.equals(ordination.getSlutDato())) {
                 ordination.anvendDosis(dato);
             } else {
                 throw new IllegalArgumentException("Not a valid date");
             }
-        }else {
+        } else {
             throw new IllegalArgumentException("No ordination found");
         }
     }
@@ -133,15 +134,32 @@ public abstract class Controller {
         return vægt * faktor;
     }
 
-    /** Returner antal ordinationer for det givne vægtinterval og det givne lægemiddel. */
+    /**
+     * Returner antal ordinationer for det givne vægtinterval og det givne lægemiddel.
+     */
     public static int antalOrdinationerPrVægtPrLægemiddel(
             double vægtStart, double vægtSlut, Lægemiddel lægemiddel) {
         int antalOrdinationer = 0;
         for (Patient patient : storage.getAllPatienter())
             for (Ordination ordination : patient.getOrdinations())
-                if (patient.getVægt() <= vægtSlut && patient.getVægt() >= vægtStart
-                        && ordination.getLægemiddel() == lægemiddel)
-                    antalOrdinationer++;
+                if (patient.getVægt() < vægtStart || patient.getVægt() > vægtSlut) {
+                    throw new IllegalArgumentException
+                            ("Patientens vægt skal ligge mellem vægtStart & vægtSlut");
+                } else if (patient.getVægt() <= vægtSlut && patient.getVægt() >= vægtStart &&
+                        ordination.getLægemiddel() != lægemiddel) {
+                    throw new IllegalArgumentException("Invalid lægemiddel");
+                } else if (patient.getVægt() <= vægtSlut && patient.getVægt() >= vægtStart &&
+                        ordination.getLægemiddel() == null) {
+                    throw new NullPointerException("Nullable lægemiddel");
+                } else if (patient.getVægt() < 0 || vægtStart < 0 || vægtSlut < 0) {
+                    throw new IllegalArgumentException("Der må ikke indtastes med negative tal");
+                } else if (patient.getVægt() == 0 || vægtStart == 0 || vægtSlut == 0) {
+                    throw new IllegalArgumentException("Indtast et tal større end 0");
+                } else {
+                    if (patient.getVægt() <= vægtSlut && patient.getVægt() >= vægtStart
+                            && ordination.getLægemiddel() == lægemiddel)
+                        antalOrdinationer++;
+                }
         return antalOrdinationer;
     }
 
