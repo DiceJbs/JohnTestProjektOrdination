@@ -1,11 +1,12 @@
 package Controller;
 
 import controller.Controller;
-import ordination.Lægemiddel;
-import ordination.Patient;
+import javafx.geometry.Orientation;
+import ordination.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 class ControllerTestAntalOrdinationerPrVægtPrLægemiddel {
@@ -16,11 +17,12 @@ class ControllerTestAntalOrdinationerPrVægtPrLægemiddel {
         Lægemiddel lægemiddel = new Lægemiddel("Methotrexate",0.01,0.015,0.02,"styk");
         LocalDate startDato = LocalDate.of(2025,9,25);
         LocalDate slutDato = LocalDate.of(2025,9,29);
-
-        double resultat = Double.parseDouble(lægemiddel.getEnhedPrKgPrDøgnLet() + lægemiddel.getEnhedPrKgPrDøgnNormal() +
-                lægemiddel.getEnhedPrKgPrDøgnTung() + lægemiddel.getEnhed()); ;
-
-                assertEquals(startDato,slutDato, String.valueOf(resultat));
+        LocalTime[] klokkeSlet = new LocalTime[1];
+        klokkeSlet[0]= LocalTime.of(10,30);
+        double[] antalEnheder = new double[1];
+        antalEnheder[0]=10;
+        DagligSkæv ordination = Controller.opretDagligSkævOrdination(startDato,slutDato,patient,lægemiddel,klokkeSlet,antalEnheder);
+                assertEquals(ordination, patient.getOrdinations().getLast());
     }
     @org.junit.jupiter.api.Test
     void slutDatoFørStartDato() {

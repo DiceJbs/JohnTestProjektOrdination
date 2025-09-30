@@ -78,10 +78,7 @@ public abstract class Controller {
     public static DagligSkæv opretDagligSkævOrdination(
             LocalDate startDen, LocalDate slutDen, Patient patient, Lægemiddel lægemiddel,
             LocalTime[] klokkeSlet, double[] antalEnheder) {
-
-
         List<Dosis> dosisList = new ArrayList<>();
-
         if (startDen.isAfter(slutDen) || slutDen.isBefore(startDen)) {
             throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
         }
