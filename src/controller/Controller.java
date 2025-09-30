@@ -136,6 +136,15 @@ public abstract class Controller {
     /** Returner antal ordinationer for det givne vægtinterval og det givne lægemiddel. */
     public static int antalOrdinationerPrVægtPrLægemiddel(
             double vægtStart, double vægtSlut, Lægemiddel lægemiddel) {
+        if (lægemiddel == null) {
+            throw new NullPointerException("Lægemiddel null");
+        }
+        if (vægtSlut < 0 || vægtStart < 0) {
+            throw new IllegalArgumentException("Tallene må ikke indtastes med negative tal");
+        }
+        if (vægtSlut == 0 || vægtStart == 0) {
+            throw new IllegalArgumentException("Tallene skal være større end 0");
+        }
         int antalOrdinationer = 0;
         for (Patient patient : storage.getAllPatienter())
             for (Ordination ordination : patient.getOrdinations())
