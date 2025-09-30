@@ -60,58 +60,23 @@ class ControllerTestAntalOrdinationerPrVægtPrLægemiddel {
         Lægemiddel lægemiddel = null;
         double resultat = Double.parseDouble(lægemiddel.getEnhedPrKgPrDøgnLet() + lægemiddel.getEnhedPrKgPrDøgnNormal() + lægemiddel.getEnhedPrKgPrDøgnTung()
                 + lægemiddel.getEnhed());
+        Exception exception = assertThrows(NullPointerException.class,() -> Controller.antalOrdinationerPrVægtPrLægemiddel(vægtStart,vægtSlut,lægemiddel));
+        assertEquals("Lægemiddel null",exception.getMessage());
+    }
+    @org.junit.jupiter.api.Test
+    void vægtStartOgVægtSlutMindreEndNul() {
+        double vægtStart = -30;
+        double vægtSlut = -70;
+        Lægemiddel lægemiddel = new Lægemiddel("Paracetamol",1,1.5,2,"ML");
         Exception exception = assertThrows(IllegalArgumentException.class,() -> Controller.antalOrdinationerPrVægtPrLægemiddel(vægtStart,vægtSlut,lægemiddel));
-    }
-
-
-    /*@org.junit.jupiter.api.Test
-    void antalOrdinationerPrVægtPrLægemiddel() {
-        //Arrange
-        Patient patient = new Patient("01-01-19","Sebastian",35);
-        Lægemiddel lægemiddel = new Lægemiddel("Methotrexate",0.01,0.015,0.02,"styk");
-        double resultat = patient.getVægt();
-        assertEquals(35,resultat);
+        assertEquals("Tallene må ikke indtastes med negative tal",exception.getMessage());
     }
     @org.junit.jupiter.api.Test
-    void negativTalPåVægtStart() {
-        Patient patient = new Patient("01-01-19","Sebastian",35);
-        Lægemiddel lægemiddel = new Lægemiddel("Methotrexate",0.01,0.015,0.02,"styk");
-        double resultat = patient.getVægt();
-        assertEquals(35,resultat);
+    void vægtStartOgVægtSlutErLigeMedNul() {
+        double vægtStart = 0;
+        double vægtSlut = 0;
+        Lægemiddel lægemiddel = new Lægemiddel("Paracetamol",1,1.5,2,"ML");
+        Exception exception = assertThrows(IllegalArgumentException.class,() -> Controller.antalOrdinationerPrVægtPrLægemiddel(vægtStart,vægtSlut,lægemiddel));
+        assertEquals("Tallene skal være større end 0",exception.getMessage());
     }
-    @org.junit.jupiter.api.Test
-    void negativTalPåVægtSlut() {
-        Patient patient = new Patient("01-01-19","Sebastian",35);
-        Lægemiddel lægemiddel = new Lægemiddel("Methotrexate",0.01,0.015,0.02,"styk");
-        double resultat = patient.getVægt();
-        assertEquals(40,resultat);
-    }
-    @org.junit.jupiter.api.Test
-    void negativTalPåPatientVægt() {
-        Patient patient = new Patient("01-01-19","Sebastian",-35);
-        Lægemiddel lægemiddel = new Lægemiddel("Methotrexate",0.01,0.015,0.02,"styk");
-        double resultat = patient.getVægt();
-        assertEquals(-35,resultat);
-    }
-    @org.junit.jupiter.api.Test
-    void nulVærdiStartVærdi() {
-        Patient patient = new Patient("01-01-19","Sebastian",35);
-        Lægemiddel lægemiddel = new Lægemiddel("Methotrexate",0.01,0.015,0.02,"styk");
-        double resultat = patient.getVægt();
-        assertEquals(40,resultat);
-    }
-    @org.junit.jupiter.api.Test
-    void nulVærdiSlutVærdi() {
-        Patient patient = new Patient("01-01-19","Sebastian",35);
-        Lægemiddel lægemiddel = new Lægemiddel("Methotrexate",0.01,0.015,0.02,"styk");
-        double resultat = patient.getVægt();
-        assertEquals(40,resultat);
-    }
-    @org.junit.jupiter.api.Test
-    void nulVærdiVærdi() {
-        Patient patient = new Patient("01-01-19","Sebastian",35);
-        Lægemiddel lægemiddel = new Lægemiddel("Methotrexate",0.01,0.015,0.02,"styk");
-        double resultat = patient.getVægt();
-        assertEquals(40,resultat);
-    }*/
 }
