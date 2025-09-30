@@ -27,7 +27,7 @@ public abstract class Controller {
         if (antal<0) {
         throw new IllegalArgumentException("antal under 0");
         }
-        if (startDato.isAfter(slutDato)){
+        if (startDato.isAfter(slutDato)) {
             throw new IllegalArgumentException("Start dato er efter slut dato");
         }
         PN ordination = new PN(startDato,slutDato,antal);
@@ -53,10 +53,6 @@ public abstract class Controller {
 
         if (morgenAntal < 0 || middagAntal < 0 || aftenAntal < 0 || natAntal < 0) {
             throw new IllegalArgumentException("Antal doser kan ikke være negative");
-        }
-
-        if (patient == null) {
-            throw new IllegalArgumentException("Patient må ikke være null");
         }
 
         DagligFast ordination = new DagligFast(startDato, slutDato, morgenAntal, middagAntal, aftenAntal, natAntal);
@@ -88,13 +84,14 @@ public abstract class Controller {
 
         if (startDen.isAfter(slutDen) || slutDen.isBefore(startDen)) {
             throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
-        } if (antalEnheder.length != klokkeSlet.length) {
+        }
+        if (antalEnheder.length != klokkeSlet.length) {
             throw new IllegalArgumentException(" Ordinationen kan ikke oprettes ");
         }
         for (int i = 0; i < klokkeSlet.length; i++) {
             dosisList.add(new Dosis(klokkeSlet[i], antalEnheder[i]));
         }
-        DagligSkæv opretDagligSkæv = new DagligSkæv(startDen, slutDen,dosisList);
+        DagligSkæv opretDagligSkæv = new DagligSkæv(startDen, slutDen, dosisList);
         patient.getOrdinations().add(opretDagligSkæv);
         opretDagligSkæv.setLægemiddel(lægemiddel);
         return opretDagligSkæv;
@@ -122,16 +119,8 @@ public abstract class Controller {
      * (afhænger af patientens vægt).
      */
     public static double anbefaletDosisPrDøgn(Patient patient, Lægemiddel lægemiddel) {
-        if (patient == null) {
-            throw new IllegalArgumentException("Patient må ikke være null");
-        }
-
         double vægt = patient.getVægt();
         double faktor;
-
-        if (vægt <= 0) {
-            throw new IllegalArgumentException("Vægt skal være > 0");
-        }
 
         if (vægt < 25) {
             faktor = lægemiddel.getEnhedPrKgPrDøgnLet();
@@ -208,7 +197,7 @@ public abstract class Controller {
         opretPNOrdination(LocalDate.parse("2019-01-20"), LocalDate.parse("2019-01-25"),
                 ib, fucidin, 5);
 
-        opretPNOrdination(LocalDate.parse("2019-01-01"), LocalDate.parse("2019.01-12"),
+        opretPNOrdination(LocalDate.parse("2019-01-01"), LocalDate.parse("2019-01-12"),
                 jane, paracetamol, 123);
 
         opretDagligFastOrdination(LocalDate.parse("2019-01-10"), LocalDate.parse("2019-01-12"),
