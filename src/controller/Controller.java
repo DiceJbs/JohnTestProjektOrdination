@@ -121,6 +121,14 @@ public abstract class Controller {
         double vægt = patient.getVægt();
         double faktor;
 
+        if (patient == null) {
+            throw new IllegalArgumentException("Patient må ikke være null");
+        }
+
+        if (vægt <= 0) {
+            throw new IllegalArgumentException("Vægt skal være > 0");
+        }
+
         if (vægt < 25) {
             faktor = lægemiddel.getEnhedPrKgPrDøgnLet();
         } else if (vægt <= 120) {
